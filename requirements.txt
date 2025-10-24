@@ -110,3 +110,4 @@ wrapt==1.17.2
 gunicorn
 psycopg2-binary
 whitenoise
+#git remote add origin https://github.com/KylebitXY/tongil.git
