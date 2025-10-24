@@ -92,21 +92,28 @@ WSGI_APPLICATION = 'tongmoodoo.wsgi.application'
 #        'NAME': BASE_DIR / 'db.sqlite3',
 #    }
 #}
-DATABASES = {
-    'default': {
-        'ENGINE': 'mssql',
-        'NAME': 'tongilmoo',
-        'USER': 'sa',
-        'PASSWORD': 'arcute,2014#',
-        'HOST': '197.248.202.105',
-        'PORT': '1433',
-        'OPTIONS': {
-            'driver': 'ODBC Driver 18 for SQL Server',
-            'extra_params': 'TrustServerCertificate=yes;'
-        },
+if os.environ.get('USE_SQLITE', 'false') == 'true':
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
     }
-}
-
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'mssql',
+            'NAME': 'tongilmoo',
+            'USER': 'sa',
+            'PASSWORD': 'arcute,2014#',
+            'HOST': '197.248.202.105',
+            'PORT': '1433',
+            'OPTIONS': {
+                'driver': 'ODBC Driver 18 for SQL Server',
+                'extra_params': 'TrustServerCertificate=yes;'
+            },
+        }
+    }
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
