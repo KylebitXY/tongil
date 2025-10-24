@@ -1,0 +1,607 @@
+/* General Styles */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: #f4f6f9;
+}
+
+/* Header Styles */
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #007bff; /* Primary background color */
+    color: #ffffff; /* Text color */
+    z-index: 1000;
+    border-bottom: 1px solid #0056b3; /* Darker bottom border for separation */
+}
+
+.navbar {
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+    justify-content: space-between;
+}
+
+.navbar-brand {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.navbar-toggler {
+    border: none;
+    background: transparent;
+}
+
+.navbar-toggler-icon {
+    background-image: url('data:image/svg+xml;charset=utf8,<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 6H21V8H3V6ZM3 11H21V13H3V11ZM3 16H21V18H3V16Z" fill="%23ffffff"/></svg>');
+}
+
+.navbar-collapse {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.nav-item {
+    margin-left: 20px;
+}
+
+.nav-link {
+    color: #ffffff;
+    font-size: 1rem;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.nav-link:hover {
+    color: #f0f0f0; /* Slightly lighter color on hover */
+}
+
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+    }
+
+    .navbar-collapse {
+        width: 100%;
+    }
+
+    .nav-item {
+        margin: 10px 0;
+    }
+
+    .nav-link {
+        font-size: 1.25rem;
+    }
+}
+
+/* Dropdown Button Styles */
+.header .nav-link.dropdown-toggle {
+    background-color: transparent;
+    border: none;
+    outline: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-weight: 500;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.header .nav-link.dropdown-toggle i {
+    margin-right: 10px;
+}
+
+/* Dropdown Content Styles */
+.header .dropdown-menu {
+    display: none;
+    flex-direction: column;
+    padding: 0;
+    background-color: #ffffff;
+    border: 1px solid #dee2e6;
+    border-radius: .25rem;
+    box-shadow: 0 .5rem 1rem rgba(0,0,0,.15);
+    min-width: 160px;
+}
+
+.header .dropdown-menu .dropdown-item {
+    color: #212529;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    border-radius: .25rem;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.header .dropdown-menu .dropdown-item i.nav-icon {
+    margin-right: 10px;
+}
+
+.header .dropdown-menu .dropdown-item:hover {
+    background-color: #f8f9fa;
+    color: #007bff;
+}
+
+/* Show Dropdown Content on Hover */
+.header .nav-item.dropdown:hover .dropdown-menu {
+    display: flex;
+}
+
+/* Optional: Add arrow icon indicating dropdown */
+.header .nav-item.dropdown > .nav-link.dropdown-toggle::after {
+    content: '\f107'; /* FontAwesome down arrow icon */
+    font-family: 'FontAwesome';
+    font-size: 12px;
+    margin-left: auto;
+    transition: transform 0.3s;
+}
+
+.header .nav-item.dropdown:hover > .nav-link.dropdown-toggle::after {
+    transform: rotate(180deg); /* Rotate arrow when dropdown is active */
+}
+
+
+/* Sidebar Styles */
+.sidebar {
+    width: 250px;
+    background-color: #343a40;
+    color: #adb5bd;
+    position: fixed;
+    top: 65px; /* Adjust based on header height */
+    left: 0;
+    height: calc(100vh - 155px); /* Adjust based on footer and header height */
+    overflow-y: auto;
+    padding: 10px 0;
+    z-index: 1000;
+    border-radius: 8px;
+    transition: transform 0.3s ease;
+    transform: translateX(0);
+}
+
+.sidebar.active {
+    transform: translateX(-250px); /* Hide sidebar */
+}
+
+/* Sidebar Toggle Button */
+.sidebar-toggle {
+    display: none;
+}
+@media (max-width: 768px) {
+    .sidebar {
+        display: block;
+        transform: translateX(-250px); /* Hide by default */
+    }
+
+    .sidebar.active {
+        transform: translateX(0); /* Show the sidebar when active on small screens */
+    }
+
+    .sidebar-toggle {
+        display: block;
+        background-color: #040404;
+        color: #ffffff;
+        border: none;
+        cursor: pointer;
+        margin: 10px;
+        height: 5vh;
+        width: 5vh;
+        border-radius: 4px;
+        position: fixed;
+        top: 15px;
+        left: -10px;
+        z-index: 1000;
+    }
+    .content-wrapper {
+        margin-left: 0; /* Adjust based on sidebar width */
+    }
+}
+
+    
+
+
+/* Content Wrapper */
+.content-wrapper {
+    margin-top: 65px; /* Adjust based on header height */
+    margin-left: 250px; /* Adjust based on sidebar width */
+    flex: 1;
+    padding: 20px;
+    transition: margin-left 0.3s;
+}
+
+
+.plans {
+    display: flex;
+    justify-content: space-around;
+    padding: 40px;
+}
+
+.plan {
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+.plans .row{
+    display: flex;
+    justify-content: space-around;
+
+}
+.plan:hover {
+    transform: scale(1.05);
+}
+
+/* Responsive layout for medium screens */
+@media (min-width: 768px) and (max-width: 1199px) {
+    .plan {
+        flex: 1 1 calc(50% - 20px); /* 2 boxes per row */
+    }
+}
+
+/* Responsive layout for small screens */
+@media (max-width: 767px) {
+    .plan {
+        flex: 1 1 calc(100% - 20px); /* 1 box per row */
+    }
+}
+/* Sidebar Navigation */
+.sidebar .nav-sidebar {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+}
+
+.sidebar .nav-item {
+    position: relative;
+}
+
+.sidebar .nav-link {
+    color: #adb5bd;
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+    border-radius: 4px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.sidebar .nav-link i.nav-icon {
+    margin-right: 10px;
+}
+
+.sidebar .nav-link:hover {
+    background-color: #495057;
+    color: #ffffff;
+}
+
+.sidebar .nav-item.active > .nav-link {
+    background-color: #495057;
+    color: #ffffff;
+}
+
+/* Dropdown Button Styles */
+.sidebar .dropbtn {
+    background-color: transparent;
+    color: #adb5bd;
+    border: none;
+    outline: none;
+    width: 100%;
+    text-align: left;
+    padding: 10px 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.sidebar .dropbtn i {
+    margin-right: 10px;
+}
+
+.sidebar .dropbtn:focus, .sidebar .dropbtn:hover {
+    background-color: #495057;
+    color: #ffffff;
+}
+
+/* Dropdown Content Styles */
+.sidebar .dropdown-content {
+    display: none;
+    flex-direction: column;
+    padding-left: 20px;
+    background-color: #343a40;
+}
+
+.sidebar .dropdown-content a {
+    color: #adb5bd;
+    padding: 8px 20px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    border-radius: 4px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.sidebar .dropdown-content a i.nav-icon {
+    margin-right: 10px;
+}
+
+.sidebar .dropdown-content a:hover {
+    background-color: #495057;
+    color: #ffffff;
+}
+
+/* Show Dropdown Content on Hover */
+.sidebar .nav-item.dropdown:hover .dropdown-content {
+    display: flex;
+}
+
+/* Optional: Add arrow icon indicating dropdown */
+.sidebar .nav-item.dropdown > .dropbtn::after {
+    content: '\f107'; /* FontAwesome down arrow icon */
+    font-family: 'FontAwesome';
+    font-size: 12px;
+    margin-left: auto;
+    transition: transform 0.3s;
+}
+
+.sidebar .nav-item.dropdown:hover > .dropbtn::after {
+    transform: rotate(180deg); /* Rotate arrow when dropdown is active */
+}
+
+/* Main Content Area */
+.content-wrapper {
+    margin-top: 65px; /* Adjust based on header height */
+    margin-left: 250px; /* Adjust based on sidebar width */
+    padding: 20px;
+    flex: 1;
+}
+
+/* Footer */
+.footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #343a40;
+    color: #ffffff;
+    text-align: center;
+    padding: 10px 20px;
+    z-index: 1000;
+}
+
+/* Cards */
+.card {
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+    background-color: #007bff;
+    color: #ffffff;
+    border-bottom: none;
+    border-radius: 8px 8px 0 0;
+    padding: 15px;
+}
+
+.card-body {
+    background-color: #ffffff;
+    padding: 20px;
+}
+
+.card-body p {
+    margin-bottom: 0;
+}
+
+.card-footer {
+    padding: 10px;
+}
+
+/* Styles for the login container */
+.login-container {
+    width: 100%;
+    max-width: 400px;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff; /* White background for the form */
+}
+
+/* Styles for the form heading */
+.login-container h2 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: #333333; /* Dark text color */
+    font-size: 24px;
+}
+
+/* Styles for the form elements */
+.login-container form {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Styles for form inputs and buttons */
+.login-container input[type="text"],
+.login-container input[type="password"] {
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+.login-container button {
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    background-color: #007bff; /* Primary button color */
+    color: #ffffff;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.login-container button:hover {
+    background-color: #0056b3; /* Darker button color on hover */
+}
+
+/* Optional: Add space between form fields and button */
+.login-container .form-group {
+    margin-bottom: 20px;
+}
+/* Tables */
+.table thead th {
+    background-color: #007bff;
+    color: #ffffff;
+}
+
+.table tbody tr:nth-child(odd) {
+    background-color: #f9f9f9;
+}
+
+/* Forms */
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.form-label {
+    display: block;
+    margin-bottom: .5rem;
+    font-weight: bold;
+    color: #343a40;
+}
+
+.form-control {
+    display: block;
+    width: 100%;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #ffffff;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+}
+
+.form-control:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 .2rem rgba(38, 143, 255, .25);
+}
+
+.form-check {
+    display: flex;
+    align-items: center;
+    margin-bottom: .5rem;
+}
+
+.form-check-input {
+    margin: 0 .5rem 0 0;
+}
+
+.form-check-label {
+    margin-bottom: 0;
+}
+
+/* Buttons */
+.btn {
+    display: inline-block;
+    font-weight: 400;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    border: 1px solid transparent;
+    border-radius: .25rem;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+}
+
+.btn-primary {
+    color: #ffffff;
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #004085;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .sidebar {
+        display: none;
+    }
+
+    .content-wrapper {
+        margin-left: 0;
+    }
+}
+
+/* Popup Form Styles */
+.popup-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1001;
+    justify-content: center;
+    align-items: center;
+}
+
+.popup-form {
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    max-width: 600px;
+    position: relative;
+}
+
+.popup-form .close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+.popup-form h1 {
+    margin-bottom: 20px;
+}
+
+.popup-form button {
+    margin-top: 20px;
+}
+
+/* Show Popup */
+.popup-overlay.show {
+    display: flex;
+}
+
+/* Image Styles */
+.img-thumbnail {
+    width: 150px; /* Adjust width as needed */
+    height: auto; /* Maintain aspect ratio */
+    object-fit: cover; /* Ensure the image covers the container */
+    border-radius: 8px; /* Optional: rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: shadow for a polished look */
+}

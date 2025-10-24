@@ -1,0 +1,25 @@
+<!-- client/my_profile.html -->
+
+{% extends 'base/base.html' %}
+
+{% block content %}
+  <h1>My Profile</h1>
+
+  {% if profile %}
+    <p><strong>Name:</strong> {{ profile.name }}</p>
+    <p><strong>Country:</strong> {{ profile.country.name }}</p>
+    <p><strong>Region:</strong> {{ profile.region }}</p>
+    <p><strong>ID/Passport Number:</strong> {{ profile.id_passport_number }}</p>
+    <p><strong>Date of Birth:</strong> {{ profile.dob }}</p>
+    <p><strong>Gender:</strong> {{ profile.gender }}</p>
+    <p><strong>Belt:</strong> {{ profile.belt.name }}</p>
+    <p><strong>Contacts:</strong> {{ profile.contacts }}</p>
+    <p><strong>Arrival Date:</strong> {{ profile.arrival_date }}</p>
+    <p><strong>Accommodation:</strong> {{ profile.accommodation }}</p>
+    <p><strong>Draw:</strong> {{ profile.draw }}</p>
+    <p><strong>Previous Wins:</strong> {{ profile.previous_wins }}</p>
+    <p><strong>Certificates:</strong> <a href="{{ profile.certificates.url }}">Download</a></p>
+  {% else %}
+    <p>No profile information available.</p>
+  {% endif %}
+{% endblock %}

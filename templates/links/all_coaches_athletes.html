@@ -1,0 +1,180 @@
+{% extends 'base/base.html' %}
+
+{% block title %}All Coaches and Athletes{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <h1 class="m-0 text-dark">All Coaches and Athletes</h1>
+
+    <!-- Filter Section -->
+    <div class="filter-group row mt-3">
+        <div class="col-md-3">
+            <label for="genderFilter">Filter by Gender:</label>
+            <select id="genderFilter" class="form-control">
+                <option value="">All</option>
+            </select>
+        </div>
+        <div class="col-md-3">
+            <label for="roleFilter">Filter by Role:</label>
+            <select id="roleFilter" class="form-control">
+                <option value="">All</option>
+            </select>
+        </div>
+        <div class="col-md-3">
+            <label for="weightClassFilter">Filter by Weight Class:</label>
+            <select id="weightClassFilter" class="form-control">
+                <option value="">All</option>
+            </select>
+        </div>
+        <div class="col-md-3 d-flex align-items-end">
+            <button id="clearFiltersBtn" class="btn btn-secondary">Clear Filters</button>
+        </div>
+    </div>
+
+    <!-- Coaches and Athletes Table Section -->
+    <div class="card mt-4">
+        <div class="card-header">
+            <h3 class="card-title">All Coaches and Athletes</h3>
+            <a href="{% url 'coach_create' %}" class="btn btn-primary float-right mr-2">Add New Coach</a>
+            <a href="{% url 'athlete_create' %}" class="btn btn-primary float-right">Add New Athlete</a>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table id="coachesAthletesTable" class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Role</th>
+                            <th>Country</th>
+                            <th>Coach</th>
+                            <th>Region</th>
+                            <th>ID Number</th>
+                            <th>Passport</th>
+                            <th>Age</th>
+                            <th>Weight</th>
+                            <th>Weight Category</th>
+                            <th>Gender</th>
+                            <th>Belt</th>
+                            <th>Contacts</th>
+                            <th>Arrival Date</th>
+                            <th>Departure Date</th>
+                            <th>Accommodation</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for coach in coaches %}
+                            <tr data-href="{% url 'coach_detail' coach.pk %}">
+                                <td>{{ coach.name }}</td>
+                                <td>Coach</td>
+                                <td>{{ coach.country.name }}</td>
+                                <td>{{ coach.name }}</td>
+                                <td>{{ coach.region }}</td>
+                                <td>{{ coach.id_passport_number }}</td>
+                                <td>{{ coach.passport }}</td>
+                                <td>{{ coach.age }}</td>
+                                <td>{{ coach.weight }}</td>
+                                <td>{{ coach.get_weight_category }}</td>
+                                <td>{{ coach.gender }}</td>
+                                <td>{{ coach.belt.name }}</td>
+                                <td>{{ coach.contacts }}</td>
+                                <td>{{ coach.arrival_date }}</td>
+                                <td>{{ coach.departure_date }}</td>
+                                <td>{{ coach.accommodation }}</td>
+                            </tr>
+                        {% empty %}
+                            <tr>
+                                <td colspan="16" class="text-center">No coaches found.</td>
+                            </tr>
+                        {% endfor %}
+
+                        {% for athlete in athletes %}
+                            <tr data-href="{% url 'athlete_detail' athlete.pk %}">
+                                <td>{{ athlete.name }}</td>
+                                <td>Athlete</td>
+                                <td>{{ athlete.country.name }}</td>
+                                <td>{{ athlete.coach.name }}</td>
+                                <td>{{ athlete.region }}</td>
+                                <td>{{ athlete.id_passport_number }}</td>
+                                <td>{{ athlete.passport }}</td>
+                                <td>{{ athlete.age }}</td>
+                                <td>{{ athlete.weight }}</td>
+                                <td>{{ athlete.get_weight_category }}</td>
+                                <td>{{ athlete.gender }}</td>
+                                <td>{{ athlete.belt.name }}</td>
+                                <td>{{ athlete.contacts }}</td>
+                                <td>{{ athlete.arrival_date }}</td>
+                                <td>{{ athlete.departure_date }}</td>
+                                <td>{{ athlete.accommodation }}</td>
+                            </tr>
+                        {% empty %}
+                            <tr>
+                                <td colspan="16" class="text-center">No athletes found.</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- DataTables and Filters Script -->
+<script>
+    $(document).ready(function() {
+        var table = $('#coachesAthletesTable').DataTable({
+            dom: 'Bfrtip',
+            buttons: [
+                'copy', 'csv', 'excel', 'pdf', 'print'
+            ],
+            "order": [[0, 'asc']]
+        });
+
+        // Function to populate filters dynamically
+        function populateFilter(columnIndex, filterElementId) {
+            var columnData = table.column(columnIndex).data().unique().sort();
+            columnData.each(function(value) {
+                if (value && value.trim()) {
+                    $(filterElementId).append('<option value="' + value.trim() + '">' + value.trim() + '</option>');
+                }
+            });
+        }
+
+        // Populate filters
+        populateFilter(10, '#genderFilter');
+        populateFilter(1, '#roleFilter');
+        populateFilter(9, '#weightClassFilter');
+
+        // Filter handling
+        $('#genderFilter').on('change', function() {
+            var gender = $(this).val().trim();
+            table.column(10).search(gender ? '^' + gender + '$' : '', true, false).draw();
+        });
+
+        $('#roleFilter').on('change', function() {
+            var role = $(this).val().trim();
+            table.column(1).search(role ? '^' + role + '$' : '', true, false).draw();
+        });
+
+        $('#weightClassFilter').on('change', function() {
+            var weightClass = $(this).val().trim();
+            table.column(9).search(weightClass ? '^' + weightClass + '$' : '', true, false).draw();
+        });
+
+        // Clear Filters Button
+        $('#clearFiltersBtn').on('click', function() {
+            $('#genderFilter').val('');
+            $('#roleFilter').val('');
+            $('#weightClassFilter').val('');
+            table.columns().search('').draw(); // Clear all filters and redraw the table
+        });
+
+        // Make rows clickable
+        $('#coachesAthletesTable tbody').on('click', 'tr', function () {
+            var href = $(this).data('href');
+            if (href) {
+                window.location = href;
+            }
+        });
+    });
+</script>
+{% endblock %}

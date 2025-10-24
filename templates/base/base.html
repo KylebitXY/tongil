@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Admin Dashboard{% endblock %}</title>
+
+    <!-- Load static files -->
+    {% load static %}
+    <!-- Load jQuery locally -->
+<script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
+
+<!-- Google Font: Source Sans Pro (Offline) -->
+<link rel="stylesheet" href="{% static 'css/source-sans-pro.css' %}">
+
+<!-- Font Awesome -->
+<link rel="stylesheet" href="{% static 'plugins/fontawesome-free/css/all.min.css' %}">
+
+<!-- Ionicons (Offline) -->
+<link rel="stylesheet" href="{% static 'dist/css/ionicons.min.css' %}">
+
+<!-- Tempusdominus Bootstrap 4 -->
+<link rel="stylesheet" href="{% static 'plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css' %}">
+
+<!-- iCheck -->
+<link rel="stylesheet" href="{% static 'plugins/icheck-bootstrap/icheck-bootstrap.min.css' %}">
+
+<!-- JQVMap -->
+<link rel="stylesheet" href="{% static 'plugins/jqvmap/jqvmap.min.css' %}">
+
+<!-- DataTables -->
+<link rel="stylesheet" href="{% static 'plugins/datatables-bs4/css/dataTables.bootstrap4.min.css' %}">
+<link rel="stylesheet" href="{% static 'plugins/datatables-responsive/css/responsive.bootstrap4.min.css' %}">
+<link rel="stylesheet" href="{% static 'plugins/datatables-buttons/css/buttons.bootstrap4.min.css' %}">
+
+<!-- Theme style -->
+<link rel="stylesheet" href="{% static 'dist/css/adminlte.min.css' %}">
+
+<!-- overlayScrollbars -->
+<link rel="stylesheet" href="{% static 'plugins/overlayScrollbars/css/OverlayScrollbars.min.css' %}">
+
+<!-- Daterange picker -->
+<link rel="stylesheet" href="{% static 'plugins/daterangepicker/daterangepicker.css' %}">
+
+<!-- Summernote -->
+<link rel="stylesheet" href="{% static 'plugins/summernote/summernote-bs4.min.css' %}">
+
+<!-- Select2 (Offline) -->
+<link rel="stylesheet" href="{% static 'css/select2.min.css' %}">
+<script src="{% static 'js/select2.min.js' %}"></script>
+
+
+</head>
+
+<body class="dark-mode sidebar-mini layout-fixed layout-footer-fixed layout-navbar-fixed" style="height: auto;">
+    <div class="wrapper">
+
+        <!-- Preloader -->
+        <div class="preloader flex-column justify-content-center align-items-center">
+            <img class="animation__shake" src="{% static 'dist/img/ktmdf.jpg' %}" alt="AdminLTELogo" height="60" width="60">
+        </div>
+
+        {% if user.is_authenticated %}
+        <!-- Navbar -->
+        {% include 'includes/navbar.html' %}
+        
+        <!-- Sidebar -->
+        {% include 'includes/sidebar.html' %}
+
+        {% endif %}
+
+        <!-- Content Wrapper -->
+        <div class="content-wrapper">
+            <!-- Content Header -->
+           
+            <!-- /.content-header -->
+
+            <!-- Main Content -->
+            <section class="content">
+                {% block content %}
+                {% endblock %}
+            </section>
+            <!-- /.content -->
+        </div>
+        <!-- /.content-wrapper -->
+
+        <!-- Footer -->
+        {% if user.is_authenticated %}
+        {% include 'includes/footer.html' %}
+        {% endif %}
+        
+        <!-- Control Sidebar -->
+        <aside class="control-sidebar control-sidebar-dark">
+            <!-- Control sidebar content goes here -->
+        </aside>
+        <!-- /.control-sidebar -->
+
+    </div>
+    <!-- ./wrapper -->
+
+    <!-- Scripts -->
+    <script src="{% static 'plugins/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'plugins/jquery-ui/jquery-ui.min.js' %}"></script>
+    <script>
+        $.widget.bridge('uibutton', $.ui.button)
+    </script>
+    <script src="{% static 'plugins/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'plugins/chart.js/Chart.min.js' %}"></script>
+    <script src="{% static 'plugins/sparklines/sparkline.js' %}"></script>
+    <script src="{% static 'plugins/jqvmap/jquery.vmap.min.js' %}"></script>
+    <script src="{% static 'plugins/jqvmap/maps/jquery.vmap.usa.js' %}"></script>
+    <script src="{% static 'plugins/jquery-knob/jquery.knob.min.js' %}"></script>
+    <script src="{% static 'plugins/moment/moment.min.js' %}"></script>
+    <script src="{% static 'plugins/daterangepicker/daterangepicker.js' %}"></script>
+    <script src="{% static 'plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js' %}"></script>
+    <script src="{% static 'plugins/summernote/summernote-bs4.min.js' %}"></script>
+    <script src="{% static 'plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js' %}"></script>
+    <!-- DataTables -->
+    <script src="{% static 'plugins/datatables/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'plugins/datatables-bs4/js/dataTables.bootstrap4.min.js' %}"></script>
+    <script src="{% static 'plugins/datatables-responsive/js/dataTables.responsive.min.js' %}"></script>
+    <script src="{% static 'plugins/datatables-responsive/js/responsive.bootstrap4.min.js' %}"></script>
+    <script src="{% static 'plugins/datatables-buttons/js/dataTables.buttons.min.js' %}"></script>
+    <script src="{% static 'plugins/datatables-buttons/js/buttons.bootstrap4.min.js' %}"></script>
+    <script src="{% static 'plugins/jszip/jszip.min.js' %}"></script>
+    <script src="{% static 'plugins/pdfmake/pdfmake.min.js' %}"></script>
+    <script src="{% static 'plugins/pdfmake/vfs_fonts.js' %}"></script>
+    <script src="{% static 'plugins/datatables-buttons/js/buttons.html5.min.js' %}"></script>
+    <script src="{% static 'plugins/datatables-buttons/js/buttons.print.min.js' %}"></script>
+    <script src="{% static 'plugins/datatables-buttons/js/buttons.colVis.min.js' %}"></script>
+    <script src="{% static 'dist/js/adminlte.js' %}"></script>
+    <script src="{% static 'dist/js/pages/dashboard.js' %}"></script>
+</body>
+
+</html>

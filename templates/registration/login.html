@@ -1,0 +1,34 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-6">
+            <!-- Card -->
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Login Form</h3>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="{{ form.username.id_for_label }}">Username</label>
+                            <input type="text" name="{{ form.username.name }}" id="{{ form.username.id_for_label }}" class="form-control" value="{{ form.username.value|default_if_none:'' }}">
+                        </div>
+                        <div class="form-group">
+                            <label for="{{ form.password.id_for_label }}">Password</label>
+                            <input type="password" name="{{ form.password.name }}" id="{{ form.password.id_for_label }}" class="form-control" value="{{ form.password.value|default_if_none:'' }}">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Login</button>
+                    </form>
+                    
+                </div>
+                <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+        </div>
+    </div>
+</div><!-- /.container-fluid -->
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends 'base/base.html' %}
+
+{% block title %}Add/Edit Media{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="my-4">{{ form.instance.pk|yesno:"Edit Media,Add Media" }}</h1>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Save</button>
+        <a href="{% url 'media_list' %}" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+{% endblock %}

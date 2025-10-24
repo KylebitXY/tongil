@@ -1,0 +1,41 @@
+{% extends "base/base.html" %}
+{% block content %}
+<h2>Tournament Participations</h2>
+<a href="{% url 'tournament_participation_create' %}" class="btn btn-primary">Add Participation</a>
+{% if tournament.id %}
+    <a href="{% url 'tournament_participation_list' tournament.id %}" class="btn btn-primary">View Participations</a>
+{% else %}
+    <p>No tournament ID available</p>
+{% endif %}
+
+<table class="table table-striped mt-3">
+    <thead>
+        <tr>
+            <th>Tournament</th>
+            <th>Coach</th>
+            <th>Athlete</th>
+            <th>Category</th>
+            <th>Performance</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for participation in participations %}
+        <tr>
+            <td>{{ participation.tournament }}</td>
+            <td>{{ participation.coach }}</td>
+            <td>{{ participation.athlete }}</td>
+            <td>{{ participation.category }}</td>
+            <td>{{ participation.performance }}</td>
+            <td>
+                <a href="{% url 'generate_pdf_individual' participation.tournament.id participation.athlete.id %}" class="btn btn-success">Generate PDF</a>
+        
+            
+                <a href="{% url 'tournament_participation_update' participation.pk %}" class="btn btn-warning btn-sm">Edit</a>
+                <a href="{% url 'tournament_participation_delete' participation.pk %}" class="btn btn-danger btn-sm">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

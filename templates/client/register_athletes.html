@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+{% load ordinal_filters %}
+
+<html>
+<head>
+    <title>Register Athletes</title>
+</head>
+<body>
+    <h1>Register Athletes for {{ tournament.name }} {{ tournament.edition|ordinal_suffix }} Edition</h1>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>

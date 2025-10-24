@@ -1,0 +1,36 @@
+{% extends 'base/base.html' %}
+
+{% block title %}Coaches{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="my-4">Coaches</h1>
+    <a href="{% url 'coach_create' %}" class="btn btn-primary mb-3">Add New Coach</a>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Country</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for coach in coaches %}
+            <tr>
+                <td>{{ coach.name }}</td>
+                <td>{{ coach.country }}</td>
+                <td>
+                    <a href="{% url 'coach_detail' coach.pk %}" class="btn btn-info btn-sm">View</a>
+                    <a href="{% url 'coach_update' coach.pk %}" class="btn btn-warning btn-sm">Edit</a>
+                    <a href="{% url 'coach_delete' coach.pk %}" class="btn btn-danger btn-sm">Delete</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="3" class="text-center">No coaches found.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

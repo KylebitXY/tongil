@@ -1,0 +1,19 @@
+{% extends 'base/base.html' %}
+
+{% block title %}Staff Detail{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="my-4">Staff Details</h1>
+    <div class="card">
+        <img src="{{ staff.passport_photo.url }}" class="card-img-top" alt="Passport Photo">
+        <div class="card-body">
+            <h5 class="card-title">{{ staff.name }}</h5>
+            <p class="card-text"><strong>Role:</strong> {{ staff.role }}</p>
+            <p class="card-text"><strong>Contact:</strong> {{ staff.contact }}</p>
+            <a href="{% url 'staff_edit' staff.pk %}" class="btn btn-warning">Edit</a>
+            <a href="{% url 'staff_list' %}" class="btn btn-primary">Back to List</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

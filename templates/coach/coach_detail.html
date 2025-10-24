@@ -1,0 +1,20 @@
+{% extends 'base/base.html' %}
+
+{% block title %}Coach Detail{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="my-4">Coach Details</h1>
+    <div class="card">
+        <img src="{{ coach.passport_photo.url }}" class="card-img-top" alt="Passport Photo">
+        <div class="card-body">
+            <h5 class="card-title">{{ coach.name }}</h5>
+            <p class="card-text"><strong>Country:</strong> {{ coach.country }}</p>
+            <p class="card-text"><strong>Level:</strong> {{ coach.level }}</p>
+            <p class="card-text"><strong>Contact:</strong> {{ coach.contacts }}</p>
+            <a href="{% url 'coach_update' coach.pk %}" class="btn btn-warning">Edit</a>
+            <a href="{% url 'coach_list' %}" class="btn btn-primary">Back to List</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

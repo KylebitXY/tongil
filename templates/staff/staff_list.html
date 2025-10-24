@@ -1,0 +1,36 @@
+{% extends 'base/base.html' %}
+
+{% block title %}Staff{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="my-4">Staff</h1>
+    <a href="{% url 'staff_create' %}" class="btn btn-primary mb-3">Add New Staff</a>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Role</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for staff in staffs %}
+            <tr>
+                <td>{{ staff.name }}</td>
+                <td>{{ staff.role }}</td>
+                <td>
+                    <a href="{% url 'staff_detail' staff.pk %}" class="btn btn-info btn-sm">View</a>
+                    <a href="{% url 'staff_edit' staff.pk %}" class="btn btn-warning btn-sm">Edit</a>
+                    <a href="{% url 'staff_delete' staff.pk %}" class="btn btn-danger btn-sm">Delete</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="3" class="text-center">No staff found.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

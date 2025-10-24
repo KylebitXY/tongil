@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: tong-il-moo-do
+    env: python
+    buildCommand: "pip install -r requirements.txt && python manage.py collectstatic --noinput && python manage.py migrate"
+    startCommand: "gunicorn yourproject.wsgi:application"
+    envVars:
+      - key: DJANGO_SETTINGS_MODULE
+        value: tongmoodoo.settings
+      - key: PYTHON_VERSION
+        value: 3.11

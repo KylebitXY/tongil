@@ -1,0 +1,17 @@
+{% extends 'base/base.html' %}
+
+{% block title %}Confirm Deletion{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="my-4">Confirm Deletion</h1>
+    
+    <p>Are you sure you want to delete the membership of "{{ object.athlete.name }}" in the team "{{ object.team.name }}"?</p>
+    
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Confirm Deletion</button>
+        <a href="{% url 'team_membership_list' %}" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+{% endblock %}

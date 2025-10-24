@@ -1,0 +1,54 @@
+{% extends 'base/base.html' %}
+
+{% block title %}Female Coaches and Athletes{% endblock %}
+
+{% block content %}
+<div class="content">
+    <div class="container-fluid">
+        <h1 class="m-0 text-dark">Female Coaches and Athletes</h1>
+        
+        <!-- Female Coaches and Athletes Table -->
+        <div class="card mt-4">
+            <div class="card-header">
+                <h3 class="card-title">Female Coaches and Athletes</h3>
+            </div>
+            <div class="card-body">
+                <table class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Role</th>
+                            <th>Country</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for coach in coaches %}
+                            <tr>
+                                <td>{{ coach.name }}</td>
+                                <td>Coach</td>
+                                <td>{{ coach.country }}</td>
+                            </tr>
+                        {% empty %}
+                            <tr>
+                                <td colspan="3">No female coaches found.</td>
+                            </tr>
+                        {% endfor %}
+                        
+                        {% for athlete in athletes %}
+                            <tr>
+                                <td>{{ athlete.name }}</td>
+                                <td>Athlete</td>
+                                <td>{{ athlete.country }}</td>
+                            </tr>
+                        {% empty %}
+                            <tr>
+                                <td colspan="3">No female athletes found.</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

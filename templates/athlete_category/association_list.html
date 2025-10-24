@@ -1,0 +1,38 @@
+{% extends 'base/base.html' %}
+
+{% block title %}Athlete Category Associations{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="my-4">Athlete Category Associations</h1>
+    
+    <a href="{% url 'athlete_category_association_add' %}" class="btn btn-primary mb-3">Add New Association</a>
+    
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Athlete</th>
+                <th>Category</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for association in associations %}
+            <tr>
+                <td>{{ association.athlete.name }}</td>
+                <td>{{ association.category.name }}</td>
+                <td>
+                    <a href="{% url 'athlete_category_association_detail' association.pk %}" class="btn btn-info btn-sm">View</a>
+                    <a href="{% url 'athlete_category_association_edit' association.pk %}" class="btn btn-warning btn-sm">Edit</a>
+                    <a href="{% url 'athlete_category_association_delete' association.pk %}" class="btn btn-danger btn-sm">Delete</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="3" class="text-center">No associations found.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

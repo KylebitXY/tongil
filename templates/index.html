@@ -1,0 +1,113 @@
+{% extends 'base/base.html' %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+
+        <!-- Page Heading -->
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0 text-dark">Welcome to Kenya Tong-Il Moo-Do Federation</h1>
+            </div>
+        </div>
+
+        <!-- Statistics Boxes -->
+        <section class="content">
+            <div class="row">
+                <!-- Total Males -->
+                <div class="col-lg-3 col-md-6 col-sm-12">
+                    <div class="card bg-info text-white">
+                        <div class="card-body">
+                            <h3 class="card-title">Total Gents</h3>
+                            <p class="card-text">{{ total_males }}</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Total Females -->
+                <div class="col-lg-3 col-md-6 col-sm-12">
+                    <div class="card bg-warning text-white">
+                        <div class="card-body">
+                            <h3 class="card-title">Total Ladies</h3>
+                            <p class="card-text">{{ total_females }}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Total Coaches -->
+                <div class="col-lg-3 col-md-6 col-sm-12">
+                    <div class="card bg-success text-white">
+                        <div class="card-body">
+                            <h3 class="card-title">Total Coaches</h3>
+                            <p class="card-text">{{ total_coaches }}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Total Athletes -->
+                <div class="col-lg-3 col-md-6 col-sm-12">
+                    <div class="card bg-danger text-white">
+                        <div class="card-body">
+                            <h3 class="card-title">Total Athletes</h3>
+                            <p class="card-text">{{ total_athletes }}</p>
+                        </div>
+                    </div>
+                </div>
+                
+
+                <!-- Overall Total -->
+                <div class="col-lg-3 col-md-6 col-sm-12">
+                    <div class="card bg-primary text-white">
+                        <div class="card-body">
+                            <h3 class="card-title">Overall Total</h3>
+                            <p class="card-text">{{ overall_total }}</p>
+                        </div>
+                    </div>
+                </div>
+            
+            <div class="col-lg-3 col-md-6 col-sm-12">
+                <div class="card bg-info text-white">
+                    <div class="card-body">
+                        <h3 class="card-title">Total Countries</h3>
+                        <p class="card-text">{{ total_countries }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </section>
+
+        <!-- Main row -->
+        <div class="row mt-4">
+            <!-- Left col -->
+            <section class="col-lg-7 connectedSortable">
+                <!-- Custom boxes -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Latest Updates</h3>
+                    </div>
+                    <div class="card-body">
+                        <p>Welcome to the Kenya Tong-Il Moo-Do Federation dashboard. Here you can manage athletes, coaches, staff, and media.</p>
+                        <p>Explore the menu to navigate through different sections.</p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Right col -->
+            <section class="col-lg-5 connectedSortable">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Quick Links</h3>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-group">
+                            <li class="list-group-item"><a href="{% url 'male_coaches_athletes' %}">All Male Participants</a></li>
+                            <li class="list-group-item"><a href="{% url 'female_coaches_athletes' %}">Female Participants</a></li>
+                            <li class="list-group-item"><a href="{% url 'all_coaches_athletes' %}">All Participants</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+{% endblock %}

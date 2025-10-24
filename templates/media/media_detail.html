@@ -1,0 +1,19 @@
+{% extends 'base/base.html' %}
+
+{% block title %}Media Detail{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="my-4">Media Details</h1>
+    <div class="card">
+        <img src="{{ media.passport_photo.url }}" class="card-img-top" alt="Passport Photo">
+        <div class="card-body">
+            <h5 class="card-title">{{ media.name }}</h5>
+            <p class="card-text"><strong>Media House:</strong> {{ media.media_house }}</p>
+            <p class="card-text"><strong>Contact:</strong> {{ media.contact }}</p>
+            <a href="{% url 'media_edit' media.pk %}" class="btn btn-warning">Edit</a>
+            <a href="{% url 'media_list' %}" class="btn btn-primary">Back to List</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

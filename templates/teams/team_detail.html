@@ -1,0 +1,42 @@
+{% extends 'base/base.html' %}
+
+{% block title %}Team Details{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="my-4">Team Details</h1>
+    
+    <dl class="row">
+        <dt class="col-sm-3">Team Name</dt>
+        <dd class="col-sm-9">{{ object.name }}</dd>
+    </dl>
+
+    <h2>Athletes</h2>
+    {% if team_memberships %}
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Athlete Name</th>
+                    <th>Joined Date</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for membership in team_memberships %}
+                    <tr>
+                        <td>{{ membership.athlete.name }}</td>
+                        <td>{{ membership.joined_date }}</td>
+                        <td>
+                            <a href="{% url 'athlete_detail' membership.athlete.pk %}" class="btn btn-info btn-sm">View Athlete</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No athletes found for this team.</p>
+    {% endif %}
+    
+    <a href="{% url 'team_list' %}" class="btn btn-secondary">Back to Team List</a>
+</div>
+{% endblock %}

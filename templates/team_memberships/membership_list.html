@@ -1,0 +1,42 @@
+{% extends 'base/base.html' %}
+
+{% block title %}Team Memberships{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="my-4">Team Memberships</h1>
+    
+    <a href="{% url 'team_membership_add' %}" class="btn btn-primary mb-3">Add New Membership</a>
+    
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Team Name</th>
+                <th>Country</th>
+                <th>Category</th>
+                <th>No. of Members</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for team in object_list %}
+            <tr>
+                <td>{{ team.name }}</td>
+                <td>{{ team.country.name }}</td>  <!-- Assuming you have a ForeignKey relationship to a Country model -->
+                <td>{{ team.category.name }}</td>  <!-- Assuming 'category' is a choice field -->
+                <td>{{ team.members.count }}</td>  <!-- Counting the number of members in the team -->
+                <td>
+                    <a href="{% url 'team_membership_detail' team.pk %}" class="btn btn-info btn-sm">View</a>
+                    <a href="{% url 'team_membership_edit' team.pk %}" class="btn btn-warning btn-sm">Edit</a>
+                    <a href="{% url 'team_membership_delete' team.pk %}" class="btn btn-danger btn-sm">Delete</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="5" class="text-center">No memberships found.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

@@ -1,0 +1,274 @@
+{% extends 'base/base.html' %}
+
+{% block title %}Update Athlete{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="my-4">Update Athlete</h1>
+
+    <!-- Display non-field errors -->
+    {% if form.non_field_errors %}
+    <div class="alert alert-danger">
+        <ul>
+            {% for error in form.non_field_errors %}
+            <li>{{ error }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+
+    <div class="container mt-5">
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            
+            <!-- Name Field -->
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" class="form-control" id="name" name="name" value="{{ form.name.value }}">
+                {% if form.name.errors %}
+                    <div class="text-danger">
+                        {{ form.name.errors }}
+                    </div>
+                {% endif %}
+            </div>
+        
+            <!-- Passport Photo Field -->
+            <div class="form-group">
+                <label for="passport_photo">Passport Photo:</label>
+                {% if form.instance.passport_photo %}
+                    <img src="{{ form.instance.passport_photo.url }}" alt="Current Passport Photo" style="max-width: 200px;">
+                {% endif %}
+                <input type="file" class="form-control" id="passport_photo" name="passport_photo">
+                {% if form.passport_photo.errors %}
+                    <div class="text-danger">
+                        {{ form.passport_photo.errors }}
+                    </div>
+                {% endif %}
+            </div>
+        
+            <!-- Country Field -->
+            <div class="form-group">
+                <label for="country">Country:</label>
+                {{ form.country }}
+                {% if form.country.errors %}
+                    <div class="text-danger">
+                        {{ form.country.errors }}
+                    </div>
+                {% endif %}
+            </div>
+        
+            <!-- Region Field (conditionally visible) -->
+            <div class="form-group" id="region-container">
+                <label for="region">Region:</label>
+                {{ form.region }}
+                {% if form.region.errors %}
+                    <div class="text-danger">
+                        {{ form.region.errors }}
+                    </div>
+                {% endif %}
+            </div>
+        
+            <!-- Coach Field (ForeignKey) -->
+            <div class="form-group">
+                <label for="coach">Coach:</label>
+                {{ form.coach }}
+                {% if form.coach.errors %}
+                    <div class="text-danger">
+                        {{ form.coach.errors }}
+                    </div>
+                {% endif %}
+            </div>
+        
+            <!-- ID/Passport Number Field -->
+            <div class="form-group">
+                <label for="id_passport_number">ID/Passport Number:</label>
+                <input type="text" class="form-control" id="id_passport_number" name="id_passport_number" value="{{ form.id_passport_number.value }}">
+                {% if form.id_passport_number.errors %}
+                    <div class="text-danger">
+                        {{ form.id_passport_number.errors }}
+                    </div>
+                {% endif %}
+            </div>
+        
+            <!-- Passport Fields -->
+            <div class="form-group">
+                <label for="passport">Passport:</label>
+                {{ form.passport }}
+                {% if form.passport.errors %}
+                    <div class="text-danger">
+                        {{ form.passport.errors }}
+                    </div>
+                {% endif %}
+            </div>
+            <div class="form-group">
+                <label for="passport_date_of_issue">Passport Date of Issue:</label>
+                <input type="date" class="form-control" id="passport_date_of_issue" name="passport_date_of_issue" value="{{ form.passport_date_of_issue.value }}">
+                {% if form.passport_date_of_issue.errors %}
+                    <div class="text-danger">
+                        {{ form.passport_date_of_issue.errors }}
+                    </div>
+                {% endif %}
+            </div>
+            <div class="form-group">
+                <label for="passport_place_of_issue">Place of Issue:</label>
+                {{ form.passport_place_of_issue }}
+                {% if form.passport_place_of_issue.errors %}
+                    <div class="text-danger">
+                        {{ form.passport_place_of_issue.errors }}
+                    </div>
+                {% endif %}
+            </div>
+            <div class="form-group">
+                <label for="passport_expiry_date">Passport Expiry Date:</label>
+                <input type="date" class="form-control" id="passport_expiry_date" name="passport_expiry_date" value="{{ form.passport_expiry_date.value }}">
+                {% if form.passport_expiry_date.errors %}
+                    <div class="text-danger">
+                        {{ form.passport_expiry_date.errors }}
+                    </div>
+                {% endif %}
+            </div>
+        
+            <!-- Date of Birth Field -->
+            <div class="form-group">
+                <label for="dob">Date of Birth:</label>
+                {{ form.dob }}
+                {% if form.dob.errors %}
+                    <div class="text-danger">
+                        {{ form.dob.errors }}
+                    </div>
+                {% endif %}
+            </div>
+            
+        
+            <!-- Gender Field (ChoiceField) -->
+            <div class="form-group">
+                <label for="gender">Gender:</label>
+                {{ form.gender }}
+                {% if form.gender.errors %}
+                    <div class="text-danger">
+                        {{ form.gender.errors }}
+                    </div>
+                {% endif %}
+            </div>
+        
+            <!-- Contacts Field -->
+            <div class="form-group">
+                <label for="contacts">Contacts:</label>
+                <input type="text" class="form-control" id="contacts" name="contacts" value="{{ form.contacts.value }}">
+                {% if form.contacts.errors %}
+                    <div class="text-danger">
+                        {{ form.contacts.errors }}
+                    </div>
+                {% endif %}
+            </div>
+        
+            <!-- Email Field -->
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" class="form-control" id="email" name="email" value="{{ form.email.value }}">
+                {% if form.email.errors %}
+                    <div class="text-danger">
+                        {{ form.email.errors }}
+                    </div>
+                {% endif %}
+            </div>
+        
+            <!-- Blood Group Field -->
+            <div class="form-group">
+                <label for="blood_group">Blood Group:</label>
+                <select class="form-control" id="blood_group" name="blood_group">
+                    {% for key, value in form.fields.blood_group.choices %}
+                        <option value="{{ key }}" {% if form.blood_group.value == key %}selected{% endif %}>
+                            {{ value }}
+                        </option>
+                    {% endfor %}
+                </select>
+                {% if form.blood_group.errors %}
+                    <div class="text-danger">
+                        {{ form.blood_group.errors }}
+                    </div>
+                {% endif %}
+            </div>
+            
+            <!-- Belt Field (ForeignKey) -->
+            <div class="form-group">
+                <label for="belt">Belt:</label>
+                {{ form.belt }}
+                {% if form.belt.errors %}
+                    <div class="text-danger">
+                        {{ form.belt.errors }}
+                    </div>
+                {% endif %}
+            </div>
+        
+            <!-- Arrival Date Field -->
+            <div class="form-group">
+                <label for="arrival_date">Arrival Date:</label>
+                <input type="date" class="form-control" id="arrival_date" name="arrival_date" value="{{ form.arrival_date.value }}">
+                {% if form.arrival_date.errors %}
+                    <div class="text-danger">
+                        {{ form.arrival_date.errors }}
+                    </div>
+                {% endif %}
+            </div>
+        
+            <!-- Departure Date Field -->
+            <div class="form-group">
+                <label for="departure_date">Departure Date:</label>
+                <input type="date" class="form-control" id="departure_date" name="departure_date" value="{{ form.departure_date.value }}">
+                {% if form.departure_date.errors %}
+                    <div class="text-danger">
+                        {{ form.departure_date.errors }}
+                    </div>
+                {% endif %}
+            </div>
+        
+            <!-- Accommodation Field -->
+            <div class="form-group">
+                <label for="accommodation">Accommodation:</label>
+                {{form.accommodation}}                  {% if form.accommodation.errors %}
+                    <div class="text-danger">
+                        {{ form.accommodation.errors }}
+                    </div>
+                {% endif %}
+            </div>
+        
+            <!-- Weight Field -->
+            <div class="form-group">
+                <label for="weight">Weight:</label>
+                <input type="number" class="form-control" id="weight" name="weight" value="{{ form.weight.value }}">
+                {% if form.weight.errors %}
+                    <div class="text-danger">
+                        {{ form.weight.errors }}
+                    </div>
+                {% endif %}
+            </div>
+        
+             <!-- Categories Field (ModelMultipleChoiceField) -->
+             <div class="form-group">
+                <label for="id_category">Categories:</label>
+                {{ form.category }}  <!-- This renders the multi-select dropdown -->
+                {% if form.categories.errors %}
+                    <div class="text-danger">
+                        {{ form.category.errors }}
+                    </div>
+                {% endif %}
+            </div>
+        
+            <!-- Submit Button -->
+            <div class="form-group mt-3">
+                <button type="submit" class="btn btn-primary">Update</button>
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+    $(document).ready(function() {
+    $('#id_category').select2({
+        placeholder: 'Select Categories',
+        allowClear: true
+    });
+});
+
+</script>
+{% endblock %}

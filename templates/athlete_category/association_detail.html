@@ -1,0 +1,14 @@
+{% extends 'base/base.html' %}
+
+{% block title %}Association Detail{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="my-4">{{ association.athlete.name }} - {{ association.category.name }}</h1>
+    
+    <p><strong>Athlete:</strong> {{ association.athlete.name }}</p>
+    <p><strong>Category:</strong> {{ association.category.name }}</p>
+    
+    <a href="{% url 'athlete_category_association_list' %}" class="btn btn-secondary">Back to List</a>
+</div>
+{% endblock %}

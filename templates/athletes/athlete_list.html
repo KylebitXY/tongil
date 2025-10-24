@@ -1,0 +1,280 @@
+{% extends 'base/base.html' %}
+
+{% block title %}Athletes{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <h1 class="m-0 text-dark">Athletes</h1>
+
+    <!-- Filter Section -->
+    <div class="filter-group row mt-3">
+        <div class="col-md-3">
+            <label for="countryFilter">Filter by Country:</label>
+            <select id="countryFilter" class="form-control">
+                <option value="">All</option>
+            </select>
+        </div>
+        <div class="col-md-3">
+            <label for="genderFilter">Filter by Gender:</label>
+            <select id="genderFilter" class="form-control">
+                <option value="">All</option>
+            </select>
+        </div>
+        <div class="col-md-3">
+            <label for="weightCategoryFilter">Filter by Weight Category:</label>
+            <select id="weightCategoryFilter" class="form-control">
+                <option value="">All</option>
+            </select>
+        </div>
+        <div class="col-md-3">
+            <label for="beltFilter">Filter by Belt:</label>
+            <select id="beltFilter" class="form-control">
+                <option value="">All</option>
+            </select>
+        </div>
+        <!-- Age filter -->
+        <div class="col-md-3">
+            <label for="ageFilterMin">Filter by Age (Min):</label>
+            <input type="number" id="ageFilterMin" class="form-control" placeholder="Min Age">
+        </div>
+        <div class="col-md-3 mt-2">
+            <label for="ageFilterMax">Filter by Age (Max):</label>
+            <input type="number" id="ageFilterMax" class="form-control" placeholder="Max Age">
+        </div>
+        <div class="col-md-3 d-flex align-items-end">
+            <button id="clearFiltersBtn" class="btn btn-secondary">Clear Filters</button>
+        </div>
+    </div>
+
+    <div class="row mt-3">
+        <div class="col-md-12">
+            <button id="toggleVisibilityBtn" class="btn btn-info mb-2">Filter Column Visibility</button>
+            <div id="toggleColumns" class="d-flex flex-wrap" style="display: none;">
+                <label class="mr-2"><input type="checkbox" class="toggle-vis" data-column="0" checked> Row Number</label>
+                <label class="mr-2"><input type="checkbox" class="toggle-vis" data-column="1" checked> Name</label>
+                <label class="mr-2"><input type="checkbox" class="toggle-vis" data-column="2" checked> Country</label>
+                <label class="mr-2"><input type="checkbox" class="toggle-vis" data-column="3" checked> Coach</label>
+                <label class="mr-2"><input type="checkbox" class="toggle-vis" data-column="4" checked> Club</label>
+                <label class="mr-2"><input type="checkbox" class="toggle-vis" data-column="5" checked> ID Number</label>
+                <label class="mr-2"><input type="checkbox" class="toggle-vis" data-column="6" checked> Passport</label>
+                <label class="mr-2"><input type="checkbox" class="toggle-vis" data-column="7" checked> Age</label>
+                <label class="mr-2"><input type="checkbox" class="toggle-vis" data-column="8" checked> Weight</label>
+                <label class="mr-2"><input type="checkbox" class="toggle-vis" data-column="9" checked> Weight Category</label>
+                <label class="mr-2"><input type="checkbox" class="toggle-vis" data-column="10" checked> Gender</label>
+                <label class="mr-2"><input type="checkbox" class="toggle-vis" data-column="11" checked> Belt</label>
+                <label class="mr-2"><input type="checkbox" class="toggle-vis" data-column="12" checked> Event</label>
+                <label class="mr-2"><input type="checkbox" class="toggle-vis" data-column="13" checked> Contacts</label>
+                <label class="mr-2"><input type="checkbox" class="toggle-vis" data-column="14" checked> Arrival Date</label>
+                <label class="mr-2"><input type="checkbox" class="toggle-vis" data-column="15" checked> Departure Date</label>
+                <label class="mr-2"><input type="checkbox" class="toggle-vis" data-column="16" checked> Accommodation</label>
+            </div>
+        </div>
+    </div>
+
+    <!-- Athlete Table Section -->
+    <div class="card mt-4">
+        <div class="card-header">
+            <h3 class="card-title">Athletes</h3>
+            <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#athleteModal">
+                Add/Edit Athlete
+            </button>
+            <a href="{% url 'athlete_create' %}" class="btn btn-primary float-right mr-2">Add New Athlete</a>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table id="athletesTable" class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Name</th>
+                            <th>Country</th>
+                            <th>Coach</th>
+                            <th>Club</th>
+                            <th>ID Number</th>
+                            <th>Passport</th>
+                            <th>Age</th>
+                            <th>Weight</th>
+                            <th>Weight Category</th>
+                            <th>Gender</th>
+                            <th>Belt</th>
+                            <th>Event</th>
+                            <th>Contacts</th>
+                            <th>Arrival Date</th>
+                            <th>Departure Date</th>
+                            <th>Accommodation</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for athlete in athletes %}
+                        <tr data-href="{% url 'athlete_detail' athlete.pk %}">
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ athlete.name }}</td>
+                            <td>{{ athlete.country }}</td>
+                            <td>{{ athlete.coach }}</td>
+                            <td>{{ athlete.region }}</td>
+                            <td>{{ athlete.id_passport_number }}</td>
+                            <td>{{ athlete.passport }}</td>
+                            <td>{{ athlete.age }}</td>
+                            <td>{{ athlete.weight }}</td>
+                            <td>{{ athlete.get_weight_category }}</td>
+                            <td>{{ athlete.gender }}</td>
+                            <td>{{ athlete.belt }}</td>
+                            <td>{% if athlete.category %}{{ athlete.category|join:", " }}{% endif %}</td>
+                            <td>{{ athlete.contacts }}</td>
+                            <td>{{ athlete.arrival_date }}</td>
+                            <td>{{ athlete.departure_date }}</td>
+                            <td>{{ athlete.accommodation }}</td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="17" class="text-center">No athletes found.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- DataTables and Filters Script -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        // Initialize DataTable
+        var table = $('#athletesTable').DataTable({
+            dom: 'Bfrtip',
+            buttons: [
+                {
+                    extend: 'csvHtml5',
+                    exportOptions: {
+                        columns: ':visible'
+                    }
+                },
+                {
+                    extend: 'excelHtml5',
+                    exportOptions: {
+                        columns: ':visible'
+                    }
+                },
+                {
+                    extend: 'pdfHtml5',
+                    exportOptions: {
+                        columns: ':visible'
+                    }
+                },
+                {
+                    extend: 'print',
+                    exportOptions: {
+                        columns: ':visible'
+                    }
+                }
+            ],
+            order: [[0, 'asc']], // Order by the second column (Name), first column is now Row Number
+            columnDefs: [{
+                targets: 0,
+                searchable: false,
+                orderable: false,
+                className: 'dt-body-center'
+            }]
+        });
+
+        // Toggle column visibility
+        $('.toggle-vis').on('change', function(e) {
+            e.preventDefault();
+            var column = table.column($(this).attr('data-column'));
+            column.visible(!column.visible());
+        });
+
+        // Populate filters dynamically
+        function populateFilter(columnIndex, filterElementId) {
+            var columnData = table.column(columnIndex).data().unique().sort();
+            $(filterElementId).empty().append('<option value="">All</option>'); // Clear previous options
+            columnData.each(function(value) {
+                if (value && value.trim()) {
+                    $(filterElementId).append('<option value="' + value.trim() + '">' + value.trim() + '</option>');
+                }
+            });
+        }
+
+        // Populate filters
+        populateFilter(2, '#countryFilter'); // Country filter
+        populateFilter(4, '#regionFilter'); // Region filter
+        populateFilter(10, '#genderFilter'); // Gender filter
+        populateFilter(11, '#beltFilter');
+        populateFilter(9, '#weightCategoryFilter'); // Weight category filter
+
+        // Filter handling
+        $('#countryFilter').on('change', function() {
+            var country = $(this).val().trim();
+            table.column(2).search(country ? '^' + country + '$' : '', true, false).draw();
+        });
+
+        $('#regionFilter').on('change', function() {
+            var region = $(this).val().trim();
+            table.column(4).search(region ? '^' + region + '$' : '', true, false).draw();
+        });
+
+        $('#genderFilter').on('change', function() {
+            var gender = $(this).val().trim();
+            table.column(10).search(gender ? '^' + gender + '$' : '', true, false).draw();
+        });
+        $('#beltFilter').on('change', function() {
+            var gender = $(this).val().trim();
+            table.column(11).search(gender ? '^' + gender + '$' : '', true, false).draw();
+        });
+
+        $('#weightCategoryFilter').on('change', function() {
+            var weightCategory = $(this).val().trim();
+            table.column(9).search(weightCategory ? '^' + weightCategory + '$' : '', true, false).draw();
+        });
+             // Filter on input change
+             $('#countryFilter, #genderFilter, #weightCategoryFilter').on('change', function() {
+            table.draw(); // Redraw the table when filters are applied
+        });
+
+        // Age filter
+        $('#ageFilterMin, #ageFilterMax').on('keyup change', function() {
+            table.draw(); // Redraw the table when age filter is applied
+        });
+
+
+        // Clear filters button
+        $('#clearFiltersBtn').on('click', function() {
+            $('#countryFilter').val('');
+            $('#genderFilter').val('');
+            $('#weightCategoryFilter').val('');
+            $('#ageFilterMin').val('');
+            $('#ageFilterMax').val('');
+            $('#beltFilterMax').val('');
+
+            table.search('').columns().search('').draw();
+        });
+
+        // Custom filter function for age range
+        $.fn.dataTable.ext.search.push(function(settings, data, dataIndex) {
+            var minAge = parseInt($('#ageFilterMin').val(), 10);
+            var maxAge = parseInt($('#ageFilterMax').val(), 10);
+            var age = parseFloat(data[7]) || 0; // Use data for the Age column
+
+            if ((isNaN(minAge) && isNaN(maxAge)) ||
+                (isNaN(minAge) && age <= maxAge) ||
+                (minAge <= age && isNaN(maxAge)) ||
+                (minAge <= age && age <= maxAge)) {
+                return true;
+            }
+            return false;
+        });
+
+        // Toggle "Toggle Column Visibility" section
+        $('#toggleVisibilityBtn').on('click', function() {
+            $('#toggleColumns').toggle();
+        });
+
+        // Make rows clickable
+        $('#athletesTable tbody').on('click', 'tr[data-href]', function() {
+            window.location = $(this).data('href');
+        });
+    });
+</script>
+{% endblock %}

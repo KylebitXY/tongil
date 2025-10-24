@@ -1,0 +1,62 @@
+{% extends 'base/base.html' %}
+{% load ordinal_filters %}
+{% block title %}Tournament Detail{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="my-4 text-center">Tournament Details</h1>
+    <div class="card">
+        <div class="card-header text-center bg-primary text-white">
+            <h5 class="card-title mb-0">{{ tournament.name }} - {{ tournament.edition|ordinal_suffix }} Edition</h5>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <tbody>
+                                <tr>
+                                    <th scope="row">Name</th>
+                                    <td>{{ tournament.name }}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Edition</th>
+                                    <td>{{ tournament.edition|ordinal_suffix }}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Start Date</th>
+                                    <td>{{ tournament.start_date }}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">End Date</th>
+                                    <td>{{ tournament.end_date }}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Location</th>
+                                    <td>{{ tournament.location }}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Total Participants</th>
+                                    <td>{{ total_participants }}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Total Countries</th>
+                                    <td>{{ total_countries }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer text-center">
+            
+          
+            <a href="{% url 'register_athletes' tournament_id=tournament.id  %}">Register Athletes</a>
+       
+            <a href="{% url 'tournament_update' tournament.pk %}" class="btn btn-warning mx-2">Edit</a>
+            <a href="{% url 'tournament_list' %}" class="btn btn-primary mx-2">Back to List</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

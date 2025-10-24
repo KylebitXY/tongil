@@ -1,0 +1,352 @@
+{% extends 'base/base.html' %}
+
+{% block title %}Add/Edit Coach{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="my-4">{{ form.instance.pk|yesno:"Edit Coach,Add Coach" }}</h1>
+
+    <!-- Display non-field errors -->
+    {% if form.non_field_errors %}
+    <div class="alert alert-danger">
+        <ul>
+            {% for error in form.non_field_errors %}
+            <li>{{ error }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+
+    <div class="container mt-5">
+        <h2>Coach/Athlete Form</h2>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            
+            <!-- Name Field -->
+            <div class="form-group">
+                <label for="{{ form.name.id_for_label }}">Name{% if form.name.required %} *{% endif %}:</label>
+                <input type="text" name="{{ form.name.name }}" id="{{ form.name.id_for_label }}" class="form-control" value="{{ form.name.value|default_if_none:'' }}" placeholder="Enter name">
+                {% if form.name.errors %}
+                    <div class="text-danger">
+                        {% for error in form.name.errors %}
+                            <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+
+            <!-- Passport Photo Field -->
+            <div class="form-group">
+                <label for="{{ form.passport_photo.id_for_label }}">Passport Photo{% if form.passport_photo.required %} *{% endif %}:</label>
+                <input type="file" name="{{ form.passport_photo.name }}" id="{{ form.passport_photo.id_for_label }}" class="form-control-file">
+                {% if form.passport_photo.errors %}
+                    <div class="text-danger">
+                        {% for error in form.passport_photo.errors %}
+                            <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+
+            <!-- Country Field -->
+            <div class="form-group">
+                <label for="{{ form.country.id_for_label }}">Country{% if form.country.required %} *{% endif %}:</label>
+                <select name="{{ form.country.name }}" id="{{ form.country.id_for_label }}" class="form-control">
+                    {% for country in form.country.field.queryset %}
+                        <option value="{{ country.id }}" {% if country.id == form.country.value %}selected{% endif %}>
+                            {{ country.name }}
+                        </option>
+                    {% endfor %}
+                </select>
+                {% if form.country.errors %}
+                    <div class="text-danger">
+                        {% for error in form.country.errors %}
+                            <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+
+            <!-- Region Field -->
+            <div class="form-group">
+                <label for="{{ form.region.id_for_label }}">Region{% if form.region.required %} *{% endif %}:</label>
+                <select name="{{ form.region.name }}" id="{{ form.region.id_for_label }}" class="form-control">
+                    {% for region in form.region.field.queryset %}
+                        <option value="{{ region.id }}" {% if region.id == form.region.value %}selected{% endif %}>{{ region.name }}</option>
+                    {% endfor %}
+                </select>
+                {% if form.region.errors %}
+                    <div class="text-danger">
+                        {% for error in form.region.errors %}
+                            <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+
+            <!-- ID/Passport Number Field -->
+            <div class="form-group">
+                <label for="{{ form.id_passport_number.id_for_label }}">ID/Passport Number{% if form.id_passport_number.required %} *{% endif %}:</label>
+                <input type="text" name="{{ form.id_passport_number.name }}" id="{{ form.id_passport_number.id_for_label }}" class="form-control" value="{{ form.id_passport_number.value|default_if_none:'' }}" placeholder="Enter ID/Passport Number">
+                {% if form.id_passport_number.errors %}
+                    <div class="text-danger">
+                        {% for error in form.id_passport_number.errors %}
+                            <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+
+            <!-- Passport Details -->
+            <div class="form-group">
+                <label for="{{ form.passport.id_for_label }}">Passport Number{% if form.passport.required %} *{% endif %}:</label>
+                <input type="text" name="{{ form.passport.name }}" id="{{ form.passport.id_for_label }}" class="form-control" value="{{ form.passport.value|default_if_none:'' }}" placeholder="Enter Passport Number">
+                {% if form.passport.errors %}
+                    <div class="text-danger">
+                        {% for error in form.passport.errors %}
+                            <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+            <div class="form-group">
+                <label for="{{ form.passport_date_of_issue.id_for_label }}">Date of Issue{% if form.passport_date_of_issue.required %} *{% endif %}:</label>
+                <input type="date" name="{{ form.passport_date_of_issue.name }}" id="{{ form.passport_date_of_issue.id_for_label }}" class="form-control" value="{{ form.passport_date_of_issue.value|default_if_none:'' }}">
+                {% if form.passport_date_of_issue.errors %}
+                    <div class="text-danger">
+                        {% for error in form.passport_date_of_issue.errors %}
+                            <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+            <div class="form-group">
+                <label for="{{ form.passport_place_of_issue.id_for_label }}">Place of Issue{% if form.passport_place_of_issue.required %} *{% endif %}:</label>
+                <select name="{{ form.passport_place_of_issue.name }}" id="{{ form.passport_place_of_issue.id_for_label }}" class="form-control">
+                    {% for place in form.passport_place_of_issue.field.queryset %}
+                        <option value="{{ place.id }}" {% if place.id == form.passport_place_of_issue.value %}selected{% endif %}>
+                            {{ place.name }}
+                        </option>
+                    {% endfor %}
+                </select>
+                {% if form.passport_place_of_issue.errors %}
+                    <div class="text-danger">
+                        {% for error in form.passport_place_of_issue.errors %}
+                            <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+            <div class="form-group">
+                <label for="{{ form.passport_expiry_date.id_for_label }}">Expiry Date{% if form.passport_expiry_date.required %} *{% endif %}:</label>
+                <input type="date" name="{{ form.passport_expiry_date.name }}" id="{{ form.passport_expiry_date.id_for_label }}" class="form-control" value="{{ form.passport_expiry_date.value|default_if_none:'' }}">
+                {% if form.passport_expiry_date.errors %}
+                    <div class="text-danger">
+                        {% for error in form.passport_expiry_date.errors %}
+                            <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+
+            <!-- Date of Birth Field -->
+            <div class="form-group">
+                <label for="{{ form.date_of_birth.id_for_label }}">Date of Birth{% if form.date_of_birth.required %} *{% endif %}:</label>
+                <input type="date" name="{{ form.date_of_birth.name }}" id="{{ form.date_of_birth.id_for_label }}" class="form-control" value="{{ form.date_of_birth.value|default_if_none:'' }}">
+                {% if form.date_of_birth.errors %}
+                    <div class="text-danger">
+                        {% for error in form.date_of_birth.errors %}
+                            <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+
+            <!-- Gender Field -->
+            <div class="form-group">
+                <label for="{{ form.gender.id_for_label }}">Gender{% if form.gender.required %} *{% endif %}:</label>
+                <select name="{{ form.gender.name }}" id="{{ form.gender.id_for_label }}" class="form-control">
+                    {% for key, value in form.gender.field.choices %}
+                        <option value="{{ key }}" {% if key == form.gender.value %}selected{% endif %}>
+                            {{ value }}
+                        </option>
+                    {% endfor %}
+                </select>
+                {% if form.gender.errors %}
+                    <div class="text-danger">
+                        {% for error in form.gender.errors %}
+                            <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+
+            <!-- Contacts Field -->
+            <div class="form-group">
+                <label for="{{ form.contacts.id_for_label }}">Contacts{% if form.contacts.required %} *{% endif %}:</label>
+                <input type="text" name="{{ form.contacts.name }}" id="{{ form.contacts.id_for_label }}" class="form-control" value="{{ form.contacts.value|default_if_none:'' }}" placeholder="Enter contacts">
+                {% if form.contacts.errors %}
+                    <div class="text-danger">
+                        {% for error in form.contacts.errors %}
+                            <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+
+            <!-- Email Field -->
+            <div class="form-group">
+                <label for="{{ form.email.id_for_label }}">Email{% if form.email.required %} *{% endif %}:</label>
+                <input type="email" name="{{ form.email.name }}" id="{{ form.email.id_for_label }}" class="form-control" value="{{ form.email.value|default_if_none:'' }}" placeholder="Enter email">
+                {% if form.email.errors %}
+                    <div class="text-danger">
+                        {% for error in form.email.errors %}
+                            <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+
+            <!-- Arrival Date Field -->
+            <div class="form-group">
+                <label for="{{ form.arrival_date.id_for_label }}">Arrival Date{% if form.arrival_date.required %} *{% endif %}:</label>
+                <input type="date" name="{{ form.arrival_date.name }}" id="{{ form.arrival_date.id_for_label }}" class="form-control" value="{{ form.arrival_date.value|default_if_none:'' }}">
+                {% if form.arrival_date.errors %}
+                    <div class="text-danger">
+                        {% for error in form.arrival_date.errors %}
+                            <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+
+            <!-- Departure Date Field -->
+            <div class="form-group">
+                <label for="{{ form.departure_date.id_for_label }}">Departure Date{% if form.departure_date.required %} *{% endif %}:</label>
+                <input type="date" name="{{ form.departure_date.name }}" id="{{ form.departure_date.id_for_label }}" class="form-control" value="{{ form.departure_date.value|default_if_none:'' }}">
+                {% if form.departure_date.errors %}
+                    <div class="text-danger">
+                        {% for error in form.departure_date.errors %}
+                            <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+
+            <!-- Belt Field -->
+            <div class="form-group">
+                <label for="{{ form.belt.id_for_label }}">Belt{% if form.belt.required %} *{% endif %}:</label>
+                <select name="{{ form.belt.name }}" id="{{ form.belt.id_for_label }}" class="form-control">
+                    {% for belt in form.belt.field.queryset %}
+                        <option value="{{ belt.id }}" {% if belt.id == form.belt.value %}selected{% endif %}>
+                            {{ belt.name }}
+                        </option>
+                    {% endfor %}
+                </select>
+                {% if form.belt.errors %}
+                    <div class="text-danger">
+                        {% for error in form.belt.errors %}
+                            <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+
+            <!-- Level Field -->
+            <div class="form-group">
+                <label for="{{ form.level.id_for_label }}">Level{% if form.level.required %} *{% endif %}:</label>
+                {{ form.level }}
+                {% if form.level.errors %}
+                    <div class="text-danger">
+                        {{ form.level.errors }}
+                    </div>
+                {% endif %}
+            </div>
+            
+
+            <!-- Accommodation Field -->
+            <div class="form-group">
+                <label for="accommodation"class="required-field" style="color: red;">Accommodation{% if form.accommodation.required %} *{% endif %}:</label>
+{{form.accommodation}}                {% if form.accommodation.errors %}
+                    <div class="text-danger">
+                        {{ form.accommodation.errors }}
+                    </div>
+                {% endif %}
+            </div>
+
+      
+ <!-- Is Athlete -->
+<div class="form-group form-check">
+    <input type="checkbox" name="{{ form.is_athlete.name }}" id="{{ form.is_athlete.id_for_label }}" class="form-check-input" 
+           {% if form.is_athlete.value %}checked{% endif %} onchange="toggleAthleteFields()">
+    <label class="form-check-label" for="{{ form.is_athlete.id_for_label }}">Is Athlete</label>
+</div>
+
+<!-- Weight (Initially hidden if not an athlete) -->
+<div class="form-group" id="weight-field" style="display: {% if form.is_athlete.value %}block{% else %}none{% endif %};">
+    <label for="{{ form.weight.id_for_label }}">Weight</label>
+    <input type="text" name="{{ form.weight.name }}" id="{{ form.weight.id_for_label }}" class="form-control" 
+           value="{{ form.weight.value|default_if_none:'' }}" placeholder="Enter weight" 
+           {% if not form.is_athlete.value %}readonly{% endif %}>
+    {% if form.weight.errors %}
+        <div class="text-danger">
+            <ul>
+                {% for error in form.weight.errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+</div>
+
+<!-- Categories Field (Initially hidden if not an athlete) -->
+<div class="form-group" id="categories-field" style="display: {% if form.is_athlete.value %}block{% else %}none{% endif %};">
+    <label for="{{ form.category.id_for_label }}">Categories:</label>
+    <select name="{{ form.category.name }}" id="{{ form.category.id_for_label }}" class="form-control" 
+            {% if not form.is_athlete.value %}disabled{% endif %} multiple>
+        {% for option in form.category %}
+            <option value="{{ option.data.value }}" {% if option.data.selected %}selected{% endif %}>
+                {{ option.data.label }}
+            </option>
+        {% endfor %}
+    </select>
+    {% if form.category.errors %}
+        <div class="text-danger">
+            <ul>
+                {% for error in form.category.errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+</div>
+
+<!-- Submit Button -->
+<div class="form-group">
+    <button type="submit" class="btn btn-primary">{{ form.instance.pk|yesno:"Update,Create" }}</button>
+</div>
+</form>
+</div>
+</div>
+
+
+<script>
+    function toggleAthleteFields() {
+        const isAthleteChecked = document.getElementById('{{ form.is_athlete.id_for_label }}').checked;
+        const weightField = document.getElementById('weight-field');
+        const categoriesField = document.getElementById('categories-field');
+        
+        weightField.style.display = isAthleteChecked ? 'block' : 'none';
+        categoriesField.style.display = isAthleteChecked ? 'block' : 'none';
+        
+        // Set readonly or disabled based on the checkbox state
+        document.querySelector('#weight-field input').readOnly = !isAthleteChecked;
+        document.querySelector('#categories-field select').disabled = !isAthleteChecked;
+    }
+    
+    // Initialize field visibility and readonly/disabled state on page load based on checkbox state
+    document.addEventListener('DOMContentLoaded', (event) => {
+        toggleAthleteFields();
+    });
+</script>
+{% endblock %}

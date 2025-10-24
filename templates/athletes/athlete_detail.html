@@ -1,0 +1,74 @@
+{% extends 'base/base.html' %}
+
+{% block title %}Athlete Detail{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="my-4 text-center">Athlete Details</h1>
+    <div class="card">
+        <div class="card-header text-center bg-primary text-white">
+            <h5 class="card-title mb-0">{{ athlete.name }}</h5>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-4 text-center mb-3">
+                    <img src="{{ athlete.passport_photo.url }}" alt="Athlete Photo" class="img-thumbnail">
+                </div>
+                <div class="col-md-8">
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <tbody>
+                                <tr>
+                                    <th scope="row">Country</th>
+                                    <td>{{ athlete.country.name }}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Region</th>
+                                    <td>{{ athlete.region }}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">ID/Passport Number</th>
+                                    <td>{{ athlete.id_passport_number }}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Date of Birth</th>
+                                    <td>{{ athlete.dob }}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Gender</th>
+                                    <td>{{ athlete.gender }}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Belt</th>
+                                    <td>{{ athlete.belt.name }}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Event Category</th>
+                                    <td>{{ athlete.category.name }}</td>
+                                </tr>
+
+                                <tr>
+                                    <th scope="row">Contacts</th>
+                                    <td>{{ athlete.contacts }}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Arrival Date</th>
+                                    <td>{{ athlete.arrival_date }}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Accommodation</th>
+                                    <td>{{ athlete.accommodation }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer text-center">
+            <a href="{% url 'athlete_update' athlete.pk %}" class="btn btn-warning mx-2">Edit</a>
+            <a href="{% url 'athlete_list' %}" class="btn btn-primary mx-2">Back to List</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

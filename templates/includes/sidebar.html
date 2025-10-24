@@ -1,0 +1,150 @@
+{% load static %}
+<aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <!-- Brand Logo -->
+    <a href="/" class="brand-link">
+        <img src="{% static 'dist/img/ktmdf.jpg' %}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+        <span class="brand-text font-weight-light">KTMF-Admin</span>
+    </a>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <!-- Sidebar user panel (optional) -->
+        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+            <div class="image">
+                <img src="{% static 'dist/img/user2-160x160.jpg' %}" class="img-circle elevation-2" alt="User Image">
+            </div>
+            <div class="info">
+                <a href="/" class="d-block">{{ user.username }}</a>
+            </div>
+        </div>
+
+        <!-- SidebarSearch Form -->
+        <div class="form-inline">
+            <div class="input-group" data-widget="sidebar-search">
+                <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
+                <div class="input-group-append">
+                    <button class="btn btn-sidebar">
+                        <i class="fas fa-search fa-fw"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sidebar Menu -->
+        <nav class="mt-2">
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                {% if not coach %}
+                <!-- Only visible to admins -->
+                <li class="nav-item menu-open">
+                    <a href="#" class="nav-link active">
+                        <i class="nav-icon fas fa-tachometer-alt"></i>
+                        <p>
+                            Dashboard
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{% url 'male_coaches_athletes' %}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Male Coaches & Athletes</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url 'female_coaches_athletes' %}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Female Coaches & Athletes</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url 'all_coaches_athletes' %}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>All Coaches & Athletes</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'athlete_list' %}" class="nav-link">
+                        <i class="nav-icon fas fa-users"></i>
+                        <p>Athletes</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'coach_list' %}" class="nav-link">
+                        <i class="nav-icon fas fa-user-tie"></i>
+                        <p>Coaches</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'staff_list' %}" class="nav-link">
+                        <i class="nav-icon fas fa-users-cog"></i>
+                        <p>Staff</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'media_list' %}" class="nav-link">
+                        <i class="nav-icon fas fa-camera"></i>
+                        <p>Media</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'team_list' %}" class="nav-link">
+                        <i class="nav-icon fas fa-users"></i>
+                        <p>Teams</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'tournament_list' %}" class="nav-link">
+                        <i class="nav-icon fas fa-trophy"></i>
+                        <p>Tournaments</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'tournament_participation_list' %}" class="nav-link">
+                        <i class="nav-icon fas fa-medal"></i>
+                        <p>Participations</p>
+                    </a>
+                </li>
+                {% else %}
+                <!-- Only visible to coaches -->
+                <li class="nav-item menu-open">
+                    <a href="#" class="nav-link active">
+                        <i class="nav-icon fas fa-tachometer-alt"></i>
+                        <p>
+                            Coach Dashboard
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{% url 'athlete_list' %}" class="nav-link">
+                                <i class="nav-icon fas fa-users"></i>
+                                <p>Athletes</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url 'tournament_list' %}" class="nav-link">
+                                <i class="nav-icon fas fa-trophy"></i>
+                                <p>Tournaments</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url 'tournament_participation_list' %}" class="nav-link">
+                                <i class="nav-icon fas fa-medal"></i>
+                                <p>Participations</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url 'team_list' %}" class="nav-link">
+                                <i class="nav-icon fas fa-users"></i>
+                                <p>Teams</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                {% endif %}
+            </ul>
+        </nav>
+    </div>
+</aside>

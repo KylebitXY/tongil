@@ -1,0 +1,9 @@
+{% extends "base/base.html" %}
+{% block content %}
+<h2>Are you sure you want to delete the participation record for "{{ object.tournament }}"?</h2>
+<form method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">Confirm</button>
+</form>
+<a href="{% url 'tournament_participation_list' %}" class="btn btn-secondary mt-3">Cancel</a>
+{% endblock %}

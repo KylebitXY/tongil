@@ -1,0 +1,9 @@
+{% if coach %}
+    {% extends 'base_user.html' %}
+{% else %}
+    {% extends 'base.html' %}
+{% endif %}
+
+{% block content %}
+    {% block page_content %}{% endblock %}
+{% endblock %}

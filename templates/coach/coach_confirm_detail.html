@@ -1,0 +1,17 @@
+{% extends 'base/base.html' %}
+
+{% block title %}Confirm Delete{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="my-4">Confirm Delete</h1>
+    <div class="alert alert-danger" role="alert">
+        Are you sure you want to delete {{ coach.name }}?
+    </div>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Confirm</button>
+        <a href="{% url 'coach_list' %}" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+{% endblock %}

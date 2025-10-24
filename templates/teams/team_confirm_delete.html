@@ -1,0 +1,17 @@
+{% extends 'base/base.html' %}
+
+{% block title %}Delete Team{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="my-4">Delete Team</h1>
+    
+    <p>Are you sure you want to delete the team "{{ team.name }}"?</p>
+    
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Delete</button>
+        <a href="{% url 'team_list' %}" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+{% endblock %}

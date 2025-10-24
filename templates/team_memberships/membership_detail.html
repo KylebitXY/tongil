@@ -1,0 +1,59 @@
+{% extends 'base/base.html' %}
+
+{% block title %}Team Membership Details{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="my-4">Team Membership List</h1>
+    
+    {% if team %}
+        <h2>{{ team.name }}</h2>
+        <p>Country: {{ team.country }}</p>
+        <p>Category: {{ team.category }}</p>
+        
+        <h3>Members</h3>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Country</th>
+                    
+                    
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for member in memberships %}
+                    <tr>
+                        <td>{{ member.name }}</td>
+                        <td>{{ member.country }}</td>
+                        
+                        
+                        <td>
+                            <a href="{% url 'team_membership_detail' member.pk %}" class="btn btn-info btn-sm">View</a>
+                            <a href="{% url 'team_membership_edit' member.pk %}" class="btn btn-warning btn-sm">Edit</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        
+        <h3>Add New Member</h3>
+        <form method="post" action="{% url 'team_members_add' team.pk %}">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="athlete">Select Athlete:</label>
+                <select id="athlete" name="athlete" class="form-control">
+                    {% for athlete in athletes %}
+                        <option value="{{ athlete.pk }}">{{ athlete.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Add Member</button>
+        </form>
+        
+    {% else %}
+        <p>No team details available.</p>
+    {% endif %}
+</div>
+{% endblock %}

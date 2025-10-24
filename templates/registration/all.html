@@ -1,0 +1,17 @@
+{% extends 'base/base.html' %}
+
+{% block title %}Add/Edit Athlete{% endblock %}
+
+{% block content %}
+<div class="modal-header">
+    <h5 class="modal-title">{{ form.instance.pk|yesno:"Edit Athlete,Add Athlete" }}</h5>
+    
+</div>
+<div class="modal-body">
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Save</button>
+        <a href="{% url 'athlete_list' %}" class="btn btn-secondary">Cancel</a>
+    </form>
+    {% endblock %}
